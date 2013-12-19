@@ -1,0 +1,21 @@
+#map { 
+	height: 100%;
+	width:75%;
+	position:fixed;
+}
+
+#sidePanel {
+	height:100%;
+	width:25%;
+	margin-left:75%;
+	position:fixed;
+}
+
+body { 
+	margin: 0px;
+}
+
+.panel{
+	width:92%;
+	margin-left:4%;
+}
