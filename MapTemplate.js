@@ -1,15 +1,21 @@
 window.MapTemplate = (function () {
+	function MT(){
+		this.map;
+		this.sidePanel;
+		this.panel = new Array();
+		componentIDCount = 0;
+	}
+
 	var MapTemplate = {
 
 		createMap: function(center, zoom, url, options){
-			var map = L.map('map').setView(center, zoom);
+			MT();
 
-			L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	    		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-	    		maxZoom: 18
-			}).addTo(map);
+			this.map = L.map('map').setView(center, zoom);
+
+			L.tileLayer(url, options).addTo(this.map);
 			
-			return map;
+			return this.map;
 		},
 
 		createSidePanel: function(widthPercentage, backgroundColor, title){
@@ -18,9 +24,33 @@ window.MapTemplate = (function () {
 			$('#map').css("width", (100-widthPercentage)+"%");
 			$('#sidePanel').css("background-color", backgroundColor);
 
-			$('#sidePanel').html("<center><h1>"+title+"</h1></center><div class='panel'>This is a test of a well</div>");
+			$('#sidePanel').html("<center><h1>"+title+"</h1></center>");
 
-			return $('#sidePanel').html();
+			this.sidePanel = $('#sidePanel').html();
+			return this.sidePanel;
+		},
+
+		createPanel: function(title){
+			var p = "<div class='panel' id='panel" + (panel.length+1) + "'><h3><center>" + title + "</center></h3></div>";
+			this.sidePanel += p;
+			$('#sidePanel').html(this.sidePanel);
+			return panel.push(p);
+		},
+
+		createDropdown: function(panelID, obj, callback){
+			var dropdown = "<center><div class='btn-group btn-group-dropdown'><button data-toggle='dropdown' class='btn dropdown-toggle'>" + obj.title + " <span class='caret'></span></button><ul class='dropdown-menu' id='component" + componentIDCount + "'>";
+			for(var i=0; i<obj.selections.length; i++){
+				dropdown += "<li><a href='#'>" + obj.selections[i] + "</a></li>";
+			}
+			dropdown += "</ul></div></center>";
+
+			$("#panel" + panelID).append(dropdown);
+
+			$('.dropdown-toggle').dropdown();
+
+			$('#component' + componentIDCount + ' li a').on('click', callback);
+			componentIDCount++;
+			sidePanel = $("#sidePanel").html();
 		}
 
 	};
