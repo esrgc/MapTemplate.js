@@ -24,13 +24,13 @@
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
 	    maxZoom: 18
 	});
+	
+	var sidePanel = MapTemplate.createSidePanel(25, "red", "Title");
 
-	var sidePanelHTML = MapTemplate.createSidePanel(25, "red", "Title");
+	var panel1 = sidePanel.createPanel("Panel 1");
+	var panel2 = sidePanel.createPanel("Panel 2");
 
-	var panelID = MapTemplate.createPanel("Panel 1");
-	var panelID = MapTemplate.createPanel("Panel 2");
-
-	MapTemplate.createDropdown(1, 
+	panel1.createDropdown( 
 		{
 			"title": "Control 1",
 			"selections": [
@@ -40,53 +40,37 @@
 			]
 		}, 
 		function(){
-			console.log($(this).text());
+			console.log("1 - " + $(this).text());
 		}
 	);
 
-	MapTemplate.createDropdown(1, 
+	panel1.createDropdown( 
 		{
 			"title": "Control 2",
 			"selections": [
-				"Test 1",
-				"Test 2",
-				"Test 3"
+				"Test 4",
+				"Test 5",
+				"Test 6"
 			]
 		}, 
 		function(){
-			console.log($(this).text());
+			console.log("2 - " + $(this).text());
 		}
 	);
 
-	MapTemplate.createDropdown(1, 
-		{
-			"title": "Control 4",
-			"selections": [
-				"Test 1",
-				"Test 2",
-				"Test 3"
-			]
-		}, 
-		function(){
-			console.log($(this).text());
-		}
-	);
-
-	MapTemplate.createDropdown(2, 
+	panel2.createDropdown( 
 		{
 			"title": "Control 3",
 			"selections": [
-				"Test 1",
-				"Test 2",
-				"Test 3"
+				"Test 7",
+				"Test 8",
+				"Test 9"
 			]
 		}, 
 		function(){
-			console.log($(this).text());
+			console.log("3 - " + $(this).text());
 		}
 	);
-
-
 
 </script>
 </html>
