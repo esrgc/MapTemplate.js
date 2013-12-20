@@ -35,3 +35,8 @@ body {
 .btn{
 	margin-bottom:10px;
 }
+
+.btn-group{
+	margin-bottom:10px;
+	width:94%;
+}

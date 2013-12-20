@@ -24,7 +24,7 @@
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
 	    maxZoom: 18
 	});
-	
+
 	var sidePanel = MapTemplate.createSidePanel(25, "red", "Title");
 
 	var panel1 = sidePanel.createPanel("Panel 1");
@@ -69,6 +69,20 @@
 		}, 
 		function(){
 			console.log("3 - " + $(this).text());
+		}
+	);
+
+	panel2.createButtonGroup( 
+		{
+			"selections": [
+				"Test 10",
+				"Test 11",
+				"Test 12",
+				"Test 13"
+			]
+		}, 
+		function(){
+			console.log("4 - " + $(this).text());
 		}
 	);
 

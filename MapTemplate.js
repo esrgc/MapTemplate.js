@@ -56,27 +56,33 @@ function Panel(){
 		var dropdown = new Dropdown();
 		return dropdown.createControl(obj, callback, this.panelID);
 	};
+
+	this.createButtonGroup = function(obj, callback){
+		var buttonGroup = new ButtonGroup();
+		return buttonGroup.createControl(obj, callback, this.panelID);
+	};
 }
 
 var componentID = 0;
 
-//Treat this like an interface for all of the child controls
-function Control(){}
+function Control(){
+	this.componentID;
+}
+//Treat this like an interface function for all of the child controls
 Control.prototype.createControl = function(obj, callback, panelNum){};
 
+//Child of Control()
 function Dropdown(){
-	this.componentID;
-
 	this.createControl = function(obj, callback, panelNum){
-		var dropdown = "<center><div class='btn-group btn-group-dropdown'><button data-toggle='dropdown' class='btn dropdown-toggle'>" + obj.title + " <span class='caret'></span></button><ul class='dropdown-menu' id='component-" + componentID + "'>";
+		var component = "<center><div class='btn-group btn-group-dropdown'><button data-toggle='dropdown' class='btn dropdown-toggle'>" + obj.title + " <span class='caret'></span></button><ul class='dropdown-menu' id='component-" + componentID + "'>";
 		this.componentID = componentID;
 		componentID++;
 		for(var i=0; i<obj.selections.length; i++){
-			dropdown += "<li><a href='#'>" + obj.selections[i] + "</a></li>";
+			component += "<li><a href='#'>" + obj.selections[i] + "</a></li>";
 		}
-		dropdown += "</ul></div></center>";
+		component += "</ul></div></center>";
 
-		$('#panel-' + panelNum).append(dropdown);
+		$('#panel-' + panelNum).append(component);
 
 		$('.dropdown-toggle').dropdown();
 
@@ -85,3 +91,24 @@ function Dropdown(){
 	};
 }
 Dropdown.prototype  = Object.create(Control.prototype);
+
+//Child of Control()
+function ButtonGroup(){
+	this.createControl = function(obj, callback, panelNum){
+		var component = "<center><div class='btn-group' id='component-" + componentID + "'>";
+		this.componentID = componentID;
+		componentID++;
+		for(var i=0; i<obj.selections.length; i++){
+			component += "<button type='button' class='btn btn-default' style='width:" + (100.0/obj.selections.length) + "%''>" + obj.selections[i] + "</button></a></li>";
+		}
+		component += "</div></center>";
+
+		$('#panel-' + panelNum).append(component);
+
+		$('.dropdown-toggle').dropdown();
+
+		$('#component-' + this.componentID + ' button').on('click', callback);
+		return this;
+	};
+}
+ButtonGroup.prototype  = Object.create(Control.prototype);
